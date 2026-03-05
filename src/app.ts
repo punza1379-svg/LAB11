@@ -11,6 +11,19 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.set("view engine", "ejs");
 app.set("views", "./src/views");
+import { rateLimit } from 'express-rate-limit';
+
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  message: 'you try to login too many times,please try again in 15 minutes',
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+app.use('/login', loginLimiter);
+app.get('/', (req, res) => {
+  const token = req.cookies.token;
+  res.render('index', { isLoggedIn: !!token });
+});
 app.use(authRoutes);
 app.use(pageRoutes);
 const PORT = Number(process.env.PORT || 3000);

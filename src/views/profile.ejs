@@ -1,11 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile - Lab 11</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; line-height: 1.6; padding: 20px; max-width: 800px; margin: 0 auto; background-color: #f4f7f6; }
+        nav { background: #2c3e50; padding: 1rem; border-radius: 8px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        nav a { color: #ecf0f1; text-decoration: none; font-weight: 500; }
+        .card { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .user-info { background: #f8f9fa; padding: 15px; border-radius: 8px; border-left: 5px solid #3498db; margin: 20px 0; }
+        .btn-logout { background: #e74c3c; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        .btn-logout:hover { background: #c0392b; }
+        .badge { background: #d4edda; color: #155724; padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; }
+    </style>
+</head>
 <body>
-<h1>Profile (Protected)</h1>
-<p>UserId: <%= user.userId %></p>
-<p>Email: <%= user.email %></p>
-<form method="POST" action="/logout">
-<button type="submit">Logout</button>
-</form>
+
+    <nav>
+        <a href="/">🏠 Back to Home</a>
+        <span style="color: white;">Logged in as: <%= user.email %></span>
+    </nav>
+
+    <div class="card">
+        <h1>👤 Private Profile <span class="badge">Protected</span></h1>
+        <p>This page is only accessible because you have a valid <strong>JWT Authentication Cookie</strong>.</p>
+        
+        <div class="user-info">
+            <p><strong>Database ID:</strong> <%= user.userId %></p>
+            <p><strong>Email Address:</strong> <%= user.email %></p>
+        </div>
+
+        <p>Security Check: Your session is active. You can safely sign out below.</p>
+
+        <form method="POST" action="/logout">
+            <button type="submit" class="btn-logout">Sign Out / Logout</button>
+        </form>
+    </div>
+
 </body>
 </html>

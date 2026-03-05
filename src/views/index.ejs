@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 11 - Authentication</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; padding: 20px; max-width: 800px; margin: 0 auto; background-color: #f4f7f6; }
+        nav { background: #2c3e50; padding: 1rem; border-radius: 8px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        nav a { color: #ecf0f1; text-decoration: none; margin-right: 15px; font-weight: 500; }
+        nav a:hover { color: #3498db; }
+        .card { border: none; padding: 30px; border-radius: 12px; background: white; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .btn-logout { background: #e74c3c; color: white; border: none; padding: 8px 18px; border-radius: 5px; cursor: pointer; transition: 0.3s; }
+        .btn-logout:hover { background: #c0392b; }
+        .badge { padding: 6px 12px; border-radius: 50px; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; }
+        .online { background: #d4edda; color: #155724; }
+        .offline { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div>
+            <a href="/">🏠 Home</a>
+            <% if (isLoggedIn) { %>
+                <a href="/profile">👤 Profile</a>
+            <% } %>
+        </div>
+        <div>
+            <% if (isLoggedIn) { %>
+                <form action="/logout" method="POST" style="display:inline;">
+                    <button type="submit" class="btn-logout">Logout</button>
+                </form>
+            <% } else { %>
+                <a href="/login">🔑 Login</a>
+            <% } %>
+        </div>
+    </nav>
+
+    <div class="card">
+        <h1>Welcome to Lab 11 System</h1>
+        
+        <p>Current Session Status: 
+            <% if (isLoggedIn) { %>
+                <span class="badge online">● Online (Authenticated)</span>
+            <% } else { %>
+                <span class="badge offline">○ Offline (Guest)</span>
+            <% } %>
+        </p>
+
+        <hr style="border: 0.5px solid #eee; margin: 20px 0;">
+
+        <% if (isLoggedIn) { %>
+            <h3>Glad to see you back!</h3>
+            <p>You have full access to your <a href="/profile">Private Profile</a> page now.</p>
+        <% } else { %>
+            <h3>Please Sign In</h3>
+            <p>To access protected features, please <a href="/login">Login here</a> with your credentials.</p>
+        <% } %>
+    </div>
+
+</body>
+</html>
